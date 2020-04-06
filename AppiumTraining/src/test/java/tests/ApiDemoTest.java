@@ -1,12 +1,9 @@
 package tests;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.Test;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import pages.HomePage;
 import pages.Preferences;
 import utilities.Base;

@@ -1,17 +1,8 @@
 package tests;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebElement;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import com.aventstack.extentreports.Status;
-
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
 import utilities.Base;
 import utilities.TestUtil;
 

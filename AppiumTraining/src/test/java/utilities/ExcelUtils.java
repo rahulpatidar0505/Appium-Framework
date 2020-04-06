@@ -1,4 +1,4 @@
-package dataprovider;
+package utilities;
 
 
 import java.io.FileInputStream;
@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelDataProvider {
+public class ExcelUtils {
 	//public static String filename = System.getProperty("user.dir")+"\\src\\com\\qtpselenium\\xlsx\\Suite.xlsx";
 	public  String path;
 	public  FileInputStream fis = null;
@@ -31,7 +31,7 @@ public class ExcelDataProvider {
 	private XSSFCell cell = null;
 	
 	
-public ExcelDataProvider(String path) {
+public ExcelUtils(String path) {
 		
 		this.path=path;
 		try {
@@ -488,7 +488,7 @@ public ExcelDataProvider(String path) {
 		public static void main(String arg[]) throws IOException{
 			
 			//System.out.println(filename);
-			ExcelDataProvider datatable = null;
+			ExcelUtils datatable = null;
 			
 
 				/* datatable = new Xls_Reader(System.getProperty("user.dir")+"\\src\\com\\qtpselenium\\xls\\Controller.xlsx");

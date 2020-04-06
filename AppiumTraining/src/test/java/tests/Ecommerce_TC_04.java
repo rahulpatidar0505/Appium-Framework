@@ -12,7 +12,7 @@ import pages.FormPage;
 import utilities.Base;
 import utilities.TestUtil;
 
-public class Ecommerce_tc_4 extends Base {
+public class Ecommerce_TC_04 extends Base {
 
 	@Test
 	public void totalValidation() throws IOException, InterruptedException {

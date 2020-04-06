@@ -5,12 +5,13 @@ import java.util.concurrent.TimeUnit;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import utilities.Base;
+import utilities.ConfigUtils;
 
 public class NavigationTest extends Base {
 
 	public static void main(String[] args) {
 
-		AppiumDriver<MobileElement> driver = utilities();
+		AppiumDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		driver.findElementByXPath("//android.widget.TextView[@text='Preference']").click();

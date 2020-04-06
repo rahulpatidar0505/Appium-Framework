@@ -9,12 +9,13 @@ import org.testng.Assert;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import utilities.Base;
+import utilities.ConfigUtils;
 
 public class AppBrowserTest extends Base {
 
 	public static void main(String[] args) {
 
-		AndroidDriver<MobileElement> driver = utilities();
+		AndroidDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		/*

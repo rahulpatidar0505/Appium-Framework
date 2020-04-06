@@ -32,7 +32,6 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
-import dataprovider.Configuration;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -49,23 +48,47 @@ public class Base {
 	public String randStr = RandomStringUtils.randomAlphabetic(2);
 	public String timeStamp = new SimpleDateFormat("dd_MMM_yy_HHmmss").format(Calendar.getInstance().getTime());
 
+	public static AndroidDriver<MobileElement> capabilities(String appName) {
+
+		DesiredCapabilities caps = new DesiredCapabilities();
+
+		caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, ConfigUtils.AUTOMATIONNAME);
+		caps.setCapability(MobileCapabilityType.DEVICE_NAME, ConfigUtils.DEVICE_NAME);
+		caps.setCapability(MobileCapabilityType.PLATFORM_NAME, ConfigUtils.PLATFORM_NAME);
+		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, ConfigUtils.TIMEOUT);
+		caps.setCapability(MobileCapabilityType.APP, ConfigUtils.getApp());
+
+		// caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+
+		/*
+		 * caps.setCapability("appPackage", "io.appium.android.api");
+		 * caps.setCapability("appActivity", "io.appium.android.api.ApiDemos");
+		 */
+		try {
+			URL url = new URL(ConfigUtils.URL);
+			driver = new AndroidDriver<MobileElement>(url, caps);
+
+		} catch (MalformedURLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return driver;
+
+	}
+
 	@BeforeSuite
 	public void reportSetup() {
-
-		// start reporters
 		htmlReporter = new ExtentHtmlReporter(
 				System.getProperty("user.dir") + "./Reports/MyReport" + "_" + randStr + "_" + timeStamp + ".html");
 		htmlReporter.config().setDocumentTitle("AutomationTesting Demo Report");
 		htmlReporter.config().setReportName("My Report");
 		htmlReporter.config().setTheme(Theme.DARK);
-		// create ExtentReports and attach reporter(s)
 		extent = new ExtentReports();
 		extent.setSystemInfo("OS", "Windows");
 		extent.setSystemInfo("Host Name", "Rahul");
 		extent.setSystemInfo("Environment", "QA");
 		extent.setSystemInfo("User Name", "Rahul Patidar");
 		extent.attachReporter(htmlReporter);
-
 	}
 
 	@AfterSuite
@@ -75,24 +98,24 @@ public class Base {
 
 	@BeforeTest
 	public void killAllNodes() throws IOException, InterruptedException {
-		// taskkill /F /IM node.exe
-		Runtime.getRuntime().exec(Configuration.TASK_KILL_COMMAND);
+		Runtime.getRuntime().exec(ConfigUtils.TASK_KILL_COMMAND);
 		Thread.sleep(3000);
-
 		startAppiumServer();
-		utilities();
+		capabilities(ConfigUtils.getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
 	@AfterTest
 	public void closeServer() throws IOException {
-
-		service.stop();
+		boolean flag = checkIfServerIsRunnning(ConfigUtils.PORT_NUMBER);
+		if (!flag) {
+			service.stop();
+		}
 	}
 
 	@AfterMethod
-	public void attachSreenshot(ITestResult result) throws IOException {
-		
+	public void attachSreenshot(ITestResult result) throws IOException, InterruptedException {
+
 		String temp = Base.captureScreenshot(driver, result.getName());
 		if (result.getStatus() == ITestResult.FAILURE) {
 			test.log(Status.FAIL, "Test Failed " + test.addScreenCaptureFromPath(temp));
@@ -126,7 +149,7 @@ public class Base {
 	}
 
 	public AppiumDriverLocalService startAppiumServer() {
-		boolean flag = checkIfServerIsRunnning(Configuration.PORT_NUMBER);
+		boolean flag = checkIfServerIsRunnning(ConfigUtils.PORT_NUMBER);
 		if (!flag) {
 
 			service = AppiumDriverLocalService.buildDefaultService();
@@ -160,34 +183,4 @@ public class Base {
 		locator.click();
 	}
 
-	public static AndroidDriver<MobileElement> utilities() {
-
-		DesiredCapabilities caps = new DesiredCapabilities();
-
-		caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, Configuration.AUTOMATIONNAME);
-		caps.setCapability(MobileCapabilityType.DEVICE_NAME, Configuration.DEVICE_NAME);
-		caps.setCapability(MobileCapabilityType.PLATFORM_NAME, Configuration.PLATFORM_NAME);
-		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, Configuration.TIMEOUT);
-		caps.setCapability(MobileCapabilityType.APP, Configuration.getApiDemoAPP());
-
-		// caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
-
-		/*
-		 * caps.setCapability("appPackage", "io.appium.android.api");
-		 * caps.setCapability("appActivity", "io.appium.android.api.ApiDemos");
-		 */
-
-		try {
-			URL url = new URL(Configuration.URL);
-			driver = new AndroidDriver<MobileElement>(url, caps);
-
-		} catch (MalformedURLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return driver;
-
-	}
-	
-	
 }

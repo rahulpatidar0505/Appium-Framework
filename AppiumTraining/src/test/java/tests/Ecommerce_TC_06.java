@@ -7,12 +7,13 @@ import org.openqa.selenium.By;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import utilities.Base;
+import utilities.ConfigUtils;
 
-public class EcommerceTest1 extends Base {
+public class Ecommerce_TC_06 extends Base {
 
 	public static void main(String[] args) {
 
-		AndroidDriver<MobileElement> driver = utilities();
+		AndroidDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		driver.findElement(By.id("com.androidsample.generalstore:id/nameField")).sendKeys("Hello");

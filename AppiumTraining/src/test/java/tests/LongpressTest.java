@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import utilities.Base;
 import utilities.TestUtil;
 
-public class LongpressDemo extends Base {
+public class LongpressTest extends Base {
 
 	@Test
 	public void test() {
