@@ -10,21 +10,21 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import utilities.Base;
-import utilities.ConfigUtils;
 
 public class Ecommerce_TC_05 extends Base {
 
-	public static void main(String[] args) throws MalformedURLException, InterruptedException {
+	@Test
+	public void test() throws MalformedURLException, InterruptedException {
 
-		AndroidDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
+		AndroidDriver<MobileElement> driver = capabilities(getApp());
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 

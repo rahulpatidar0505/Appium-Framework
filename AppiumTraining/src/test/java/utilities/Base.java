@@ -12,13 +12,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -56,9 +52,9 @@ public class Base {
 		caps.setCapability(MobileCapabilityType.DEVICE_NAME, ConfigUtils.DEVICE_NAME);
 		caps.setCapability(MobileCapabilityType.PLATFORM_NAME, ConfigUtils.PLATFORM_NAME);
 		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, ConfigUtils.TIMEOUT);
-		caps.setCapability(MobileCapabilityType.APP, ConfigUtils.getApp());
+		caps.setCapability(MobileCapabilityType.APP, getApp());
 
-		// caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+//		caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 
 		/*
 		 * caps.setCapability("appPackage", "io.appium.android.api");
@@ -76,6 +72,14 @@ public class Base {
 
 	}
 
+
+	public static String getApp() {
+		File src = new File("src");
+		File app = new File(src, ConfigUtils.APP_NAME);
+		String appPath = app.getAbsolutePath();
+		return appPath;
+	}
+	
 	@BeforeSuite
 	public void reportSetup() {
 		htmlReporter = new ExtentHtmlReporter(
@@ -89,6 +93,7 @@ public class Base {
 		extent.setSystemInfo("Environment", "QA");
 		extent.setSystemInfo("User Name", "Rahul Patidar");
 		extent.attachReporter(htmlReporter);
+
 	}
 
 	@AfterSuite
@@ -97,20 +102,22 @@ public class Base {
 	}
 
 	@BeforeTest
-	public void killAllNodes() throws IOException, InterruptedException {
+	public void killAllNodesStartServerSetCapabilities() throws IOException, InterruptedException {
 		Runtime.getRuntime().exec(ConfigUtils.TASK_KILL_COMMAND);
 		Thread.sleep(3000);
 		startAppiumServer();
-		capabilities(ConfigUtils.getApp());
+		capabilities(getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 
 	@AfterTest
 	public void closeServer() throws IOException {
 		boolean flag = checkIfServerIsRunnning(ConfigUtils.PORT_NUMBER);
-		if (!flag) {
-			service.stop();
+		if (flag) {
+			//This should stop when we are starting from automation code and not manually so commenting for time being
+//			service.stop();
 		}
+		driver.quit();
 	}
 
 	@AfterMethod
@@ -119,11 +126,12 @@ public class Base {
 		String temp = Base.captureScreenshot(driver, result.getName());
 		if (result.getStatus() == ITestResult.FAILURE) {
 			test.log(Status.FAIL, "Test Failed " + test.addScreenCaptureFromPath(temp));
-		} else if (result.getStatus() == ITestResult.SKIP) {
-			test.log(Status.SKIP, "Test Skipped " + test.addScreenCaptureFromPath(temp));
-		} else if (result.getStatus() == ITestResult.SUCCESS) {
-			test.log(Status.PASS, "Passed test " + test.addScreenCaptureFromPath(temp));
-		}
+		} /*
+			 * else if (result.getStatus() == ITestResult.SKIP) { test.log(Status.SKIP,
+			 * "Test Skipped " + test.addScreenCaptureFromPath(temp)); } else if
+			 * (result.getStatus() == ITestResult.SUCCESS) { test.log(Status.PASS,
+			 * "Passed test " + test.addScreenCaptureFromPath(temp)); }
+			 */
 	}
 
 	public static void startEmulator() throws IOException, InterruptedException {
@@ -170,17 +178,6 @@ public class Base {
 			e.getMessage();
 		}
 		return destination;
-	}
-
-	public static void sendkeys(WebDriver driver, WebElement element, int timeout, String value) {
-		new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
-		element.sendKeys(value);
-	}
-
-	public static void clickOn(WebDriver driver, WebElement locator, int timeout) {
-		new WebDriverWait(driver, timeout).ignoring(StaleElementReferenceException.class)
-				.until(ExpectedConditions.elementToBeClickable(locator));
-		locator.click();
 	}
 
 }

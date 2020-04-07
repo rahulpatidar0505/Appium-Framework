@@ -5,30 +5,17 @@ import org.openqa.selenium.support.PageFactory;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import utilities.Base;
 
-// All th objects belonging to one page will be defined in java class
-public class HomePage {
-// 1. Is to call the driver object from testcase to Pageobject file
-	
-	//Concatenate driver
-	public HomePage(AndroidDriver<MobileElement> driver)
-	{
+public class HomePage extends Base{
+
+	public HomePage() {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
-	
-	
-	@AndroidFindBy(xpath="//android.widget.TextView[@text='Preference']")
+
+	@AndroidFindBy(xpath = "//android.widget.TextView[@text='Preference']")
 	public WebElement Preferences;
-	
-	
-	
-	
-	//driver.findElementByXpath("//android.widget.TextView[@text='Preference']");
-	
-	
-	
-	
+
 }

@@ -17,8 +17,6 @@ public class SwipeDemo extends Base {
 		driver.findElementByXPath("//android.widget.TextView[@text='Date Widgets']").click();
 		driver.findElementByAndroidUIAutomator("text(\"2. Inline\")").click();
 		driver.findElementByXPath("//*[@content-desc='9']").click();
-
-		// long press //on element// 2 sec// move to another element and you release
 		WebElement first = driver.findElementByXPath("//*[@content-desc='15']");
 		WebElement second = driver.findElementByXPath("//*[@content-desc='45']");
 		TestUtil.swipe(first, second, 2);

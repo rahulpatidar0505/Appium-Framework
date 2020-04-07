@@ -5,12 +5,12 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import utilities.Base;
 
-public class Preferences {
-	public Preferences(AppiumDriver driver)
+public class Preferences extends Base{
+	public Preferences()
 	{
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}

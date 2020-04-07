@@ -15,7 +15,7 @@ public class AppBrowserTest extends Base {
 
 	public static void main(String[] args) {
 
-		AndroidDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
+		AndroidDriver<MobileElement> driver = capabilities(getApp());
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		/*

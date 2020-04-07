@@ -10,7 +10,7 @@ public class ScrollTest extends Base {
 
 	public static void main(String[] args) {
 
-		AndroidDriver<MobileElement> driver = capabilities(ConfigUtils.getApp());
+		AndroidDriver<MobileElement> driver = capabilities(getApp());
 		driver.findElementByXPath("//android.widget.TextView[@text='Views']").click();
 		TestUtil.scrollToText("WebView");
 

@@ -6,7 +6,12 @@ import static io.appium.java_client.touch.offset.ElementOption.element;
 import static java.time.Duration.ofSeconds;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.TouchAction;
 
@@ -22,12 +27,35 @@ public class TestUtil extends Base {
 				"new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + text + "\"));");
 	}
 
+	public static void scrollToTextAndClick(String text) {
+		driver.findElementByAndroidUIAutomator(
+				"new UiScrollable(new UiSelector()).scrollIntoView(text(\"" + text + "\"));").click();
+	}
+
 	public static int checkClickable() {
 		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().clickable(true)").size();
 		return size;
 	}
+	
+	public static int checkChecked() {
+		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
+		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().checked(true)").size();
+		return size;
+	}
 
+	public static int checkScrollable() {
+		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
+		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().scrollable(true)").size();
+		return size;
+	}
+	
+	public static int checkEnabled() {
+		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
+		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().enabled(true)").size();
+		return size;
+	}
+	
 	public static void dragAndDrop(WebElement source, WebElement destination) {
 		// t.longPress(longPressOptions().withElement(element(source))).moveTo(element(destination)).release().perform();
 		action.longPress(element(source)).moveTo(element(destination)).release().perform();
@@ -50,5 +78,26 @@ public class TestUtil extends Base {
 	public static void scrollIntoWeb() {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("window.scrollBy(0,480)", "");
+	}
+
+	public static void sendkeys(WebDriver driver, WebElement element, int timeout, String value) {
+		new WebDriverWait(driver, timeout).until(ExpectedConditions.visibilityOf(element));
+		element.sendKeys(value);
+	}
+
+	public static void clickOn(WebDriver driver, WebElement locator, int timeout) {
+		new WebDriverWait(driver, timeout).ignoring(StaleElementReferenceException.class)
+				.until(ExpectedConditions.elementToBeClickable(locator));
+		locator.click();
+	}
+
+	public static void setScreenOrientation(String screenOrientationType) {
+		if (screenOrientationType.equals("LANDSCAPE")) {
+			driver.rotate(ScreenOrientation.LANDSCAPE);
+		} else if (screenOrientationType.equals("PORTRAIT"))
+			driver.rotate(ScreenOrientation.PORTRAIT);
+		else {
+			System.out.println("Please provide screenOrientationType");
+		}
 	}
 }
