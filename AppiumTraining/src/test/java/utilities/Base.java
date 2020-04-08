@@ -44,7 +44,7 @@ public class Base {
 	public String randStr = RandomStringUtils.randomAlphabetic(2);
 	public String timeStamp = new SimpleDateFormat("dd_MMM_yy_HHmmss").format(Calendar.getInstance().getTime());
 
-	public static AndroidDriver<MobileElement> capabilities(String appName) {
+	public static AndroidDriver<MobileElement> capabilities() {
 
 		DesiredCapabilities caps = new DesiredCapabilities();
 
@@ -54,7 +54,7 @@ public class Base {
 		caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, ConfigUtils.TIMEOUT);
 		caps.setCapability(MobileCapabilityType.APP, getApp());
 
-//		caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+		//caps.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
 
 		/*
 		 * caps.setCapability("appPackage", "io.appium.android.api");
@@ -106,7 +106,7 @@ public class Base {
 		Runtime.getRuntime().exec(ConfigUtils.TASK_KILL_COMMAND);
 		Thread.sleep(3000);
 		startAppiumServer();
-		capabilities(getApp());
+		capabilities();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 	}
 

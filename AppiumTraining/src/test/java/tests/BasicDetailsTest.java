@@ -22,5 +22,7 @@ public class BasicDetailsTest extends Base {
 		
 		//driver.hideKeyboard();
 		//driver.findElementByAndroidUIAutomator("attribute("value")")
+		
+
 	}
 }

@@ -1,22 +1,14 @@
 package tests;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
 import utilities.Base;
-import utilities.ConfigUtils;
 
 public class AppBrowserTest extends Base {
 
-	public static void main(String[] args) {
-
-		AndroidDriver<MobileElement> driver = capabilities(getApp());
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	public void test() {
 
 		/*
 		 * driver.get("http://facebook.com");

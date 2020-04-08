@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.ElementOption;
 
 public class TestUtil extends Base {
 
@@ -37,7 +38,7 @@ public class TestUtil extends Base {
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().clickable(true)").size();
 		return size;
 	}
-	
+
 	public static int checkChecked() {
 		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().checked(true)").size();
@@ -49,13 +50,13 @@ public class TestUtil extends Base {
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().scrollable(true)").size();
 		return size;
 	}
-	
+
 	public static int checkEnabled() {
 		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().enabled(true)").size();
 		return size;
 	}
-	
+
 	public static void dragAndDrop(WebElement source, WebElement destination) {
 		// t.longPress(longPressOptions().withElement(element(source))).moveTo(element(destination)).release().perform();
 		action.longPress(element(source)).moveTo(element(destination)).release().perform();
@@ -73,6 +74,11 @@ public class TestUtil extends Base {
 	public static void swipe(WebElement swipeFrom, WebElement swipeTo, int time) {
 		action.longPress(longPressOptions().withElement(element(swipeFrom)).withDuration(ofSeconds(time)))
 				.moveTo(element(swipeTo)).release().perform();
+	}
+
+	public static void horizontalScroll(WebElement element, int x, int y) {
+		action.longPress(ElementOption.element(element)).moveTo(ElementOption.element(element, x, y)).release()
+				.perform();
 	}
 
 	public static void scrollIntoWeb() {

@@ -14,7 +14,9 @@ public class ConfigUtils {
 	public static final String APP_ACTIVITY = "io.appium.android.api.ApiDemos";
 	// General-Store.apk
 	// ApiDemos-debug.apk
-	public static final String APP_NAME = "General-Store.apk";
+	//selendroid-test-app.apk
+	//example.apk
+	public static final String APP_NAME = "selendroid-test-app.apk";
 //	appPackage and appActivity for calculator
 //	"appPackage", "com.miui.calculator"
 //	"appActivity","com.miui.calculator.cal.CalculatorActivity"
