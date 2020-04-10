@@ -10,16 +10,20 @@ public class ConfigUtils {
 	public static final String AUTOMATIONNAME = "UiAutomator2";
 	public static final String BROWSER = "Chrome";
 	public static final String TASK_KILL_COMMAND = "taskkill /F /IM node.exe";
-	public static final String APP_PACKAGE = "io.appium.android.api";
-	public static final String APP_ACTIVITY = "io.appium.android.api.ApiDemos";
+
 	// General-Store.apk
 	// ApiDemos-debug.apk
 	//selendroid-test-app.apk
 	//example.apk
-	public static final String APP_NAME = "selendroid-test-app.apk";
+	//CalculatorTest.apk
+	public static final String APP_NAME = "CalculatorTest.apk";
+	
 //	appPackage and appActivity for calculator
 //	"appPackage", "com.miui.calculator"
 //	"appActivity","com.miui.calculator.cal.CalculatorActivity"
+	
+//	public static final String APP_PACKAGE = "io.appium.android.api";
+//	public static final String APP_ACTIVITY = "io.appium.android.api.ApiDemos";
 	
 
 }
