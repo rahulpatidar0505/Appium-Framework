@@ -40,19 +40,16 @@ public class TestUtil extends Base {
 	}
 
 	public static int checkChecked() {
-		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().checked(true)").size();
 		return size;
 	}
 
 	public static int checkScrollable() {
-		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().scrollable(true)").size();
 		return size;
 	}
 
 	public static int checkEnabled() {
-		// driver.findElementsByAndroidUIAutomator("new UiSelector().property(value)");
 		int size = driver.findElementsByAndroidUIAutomator("new UiSelector().enabled(true)").size();
 		return size;
 	}

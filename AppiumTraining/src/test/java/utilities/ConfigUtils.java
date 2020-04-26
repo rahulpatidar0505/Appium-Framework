@@ -10,13 +10,10 @@ public class ConfigUtils {
 	public static final String AUTOMATIONNAME = "UiAutomator2";
 	public static final String BROWSER = "Chrome";
 	public static final String TASK_KILL_COMMAND = "taskkill /F /IM node.exe";
-
-	// General-Store.apk
-	// ApiDemos-debug.apk
-	//selendroid-test-app.apk
-	//example.apk
-	//CalculatorTest.apk
-	public static final String APP_NAME = "CalculatorTest.apk";
+	public static final String APP_NAME =System.getProperty("user.dir") +"\\src\\ApiDemos-debug.apk";
+	
+// General-Store.apk
+// ApiDemos-debug.apk
 	
 //	appPackage and appActivity for calculator
 //	"appPackage", "com.miui.calculator"

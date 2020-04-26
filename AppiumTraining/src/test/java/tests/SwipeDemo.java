@@ -11,8 +11,6 @@ public class SwipeDemo extends Base {
 	@Test
 	public void swipeDemo() {
 
-		test = extent.createTest("MyFirstTest", "Sample description");
-		test.info("==============Test started=============");
 		driver.findElementByXPath("//android.widget.TextView[@text='Views']").click();
 		driver.findElementByXPath("//android.widget.TextView[@text='Date Widgets']").click();
 		driver.findElementByAndroidUIAutomator("text(\"2. Inline\")").click();

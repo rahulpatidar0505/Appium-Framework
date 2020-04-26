@@ -7,7 +7,7 @@ import utilities.Base;
 public class BasicDetailsTest extends Base {
 
 	@Test
-	public void test() {
+	public void basicDetailtest() {
 
 		System.out.println(driver.currentActivity());
 		System.out.println(driver.getContext());
